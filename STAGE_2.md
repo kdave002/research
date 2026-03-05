@@ -18,4 +18,9 @@
 - Minimum 15 directly relevant: PASS
 - Minimum 3 empirical competitors: PASS
 
+## Conditional-Approval Follow-up (Completed)
+- Added targeted multi-hop failure-analysis papers (bridge/entity-chain diagnostics) to address Cluster 3 coverage.
+- Added targeted attribution/rationale papers for QA to address Cluster 4 saliency grounding.
+- Updated `outputs/literature_report.md` with these additions.
+
 If all pass, Stage 2 is ready for review and sign-off before Stage 3.
