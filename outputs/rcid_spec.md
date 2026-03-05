@@ -33,6 +33,6 @@ def compute_rcid(context, question, ground_truth, model, epsilon=0.1):
 ```
 
 ## 4. Edge Cases & Sensitivity
-- **Redundancy:** If the same fact appears twice, neither sentence may trigger the threshold individually. *Resolution:* Use incremental pruning or treat both as non-critical unless both are removed.
+- **Redundancy:** If the same fact appears twice, neither sentence may trigger the threshold individually. *Resolution:* Treat both as non-critical unless both are removed simultaneously; this includes a pairwise masking pass for sentences with identical named entities or paraphrased facts.
 - **Threshold Sensitivity:** We will test $\epsilon \in \{0.05, 0.1, 0.2\}$ to ensure the RCID metric is stable.
 - **Irrelevant Sentences:** Sentences with zero impact on accuracy contribute to the denominator, lowering the density as expected.
