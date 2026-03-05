@@ -1,8 +1,11 @@
 """
 Data loaders for MuSiQue, HotpotQA, and 2WikiMultihopQA.
 """
-def load_dataset(name, split="dev"):
-    """
-    Loads specified dataset and returns list of (context, question, answer) tuples.
-    """
-    pass
+from .loaders import load_2wikimultihopqa, load_dataset, load_hotpotqa, load_musique
+
+__all__ = [
+    "load_dataset",
+    "load_musique",
+    "load_hotpotqa",
+    "load_2wikimultihopqa",
+]
