@@ -90,15 +90,25 @@ class GPT4oQA:
                 if sentence.strip():
                     return sentence.strip()
             return context[:120]
-        resp = await self._client.responses.create(
+        resp = await self._client.chat.completions.create(
             model=self.model,
-            input=[
-                {"role": "system", "content": "Answer with a short factoid from the provided context only."},
-                {"role": "user", "content": f"Question: {question}\n\nContext:\n{context}\n\nAnswer:"},
+            messages=[
+                {"role": "system", "content": (
+    "You are a precise question answering system. "
+    "Read the context carefully and answer the question with "
+    "the exact entity, name, date, or short phrase from the context. "
+    "If the answer requires combining facts from multiple sentences, do so. "
+    "Answer in 1-5 words only. Do not explain."
+)},
+{"role": "user", "content": (
+    f"Context:\n{context}\n\n"
+    f"Question: {question}\n\n"
+    f"Answer (1-5 words, exact phrase from context):"
+)},
             ],
             temperature=0.0,
         )
-        return (getattr(resp, "output_text", "") or "").strip()
+        return resp.choices[0].message.content.strip()
 
 
 def _projected_full_run_cost(per_cell_examples: int = 100) -> Tuple[float, float, float]:

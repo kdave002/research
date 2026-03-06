@@ -132,15 +132,15 @@ class AbstractiveCompressor(BaseCompressor):
         )
         if question:
             prompt += f"\nQuestion focus: {question}"
-        resp = await client.responses.create(
+        resp = await client.chat.completions.create(
             model=self.model,
-            input=[
+            messages=[
                 {"role": "system", "content": "You are a precise context compressor."},
                 {"role": "user", "content": f"{prompt}\n\nContext:\n{text}"},
             ],
             temperature=0.0,
         )
-        compressed = (getattr(resp, "output_text", "") or "").strip()
+        compressed = resp.choices[0].message.content.strip()
         if not compressed:
             compressed = text
         return _truncate_to_tokens(compressed, token_budget)
